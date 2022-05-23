@@ -1,0 +1,6 @@
+name: Specials
+version: '${project.version}'
+main: me.lphix.specials.Specials
+api-version: 1.18
+authors: [ LpHiX ]
+description: Specials items!
