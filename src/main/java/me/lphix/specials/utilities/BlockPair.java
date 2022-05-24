@@ -9,15 +9,15 @@ import org.bukkit.util.Vector;
 import java.util.Random;
 
 public class BlockPair {
-    Block block1;
-    Block block2;
+    public Block block1;
+    public Block block2;
 
-    Vector diffXZ;
-    int diffY;
-    float lengthXZ;
-    double parameterA;
-    double parameterB;
-    float length;
+    public Vector diffXZ;
+    public  int diffY;
+    public float lengthXZ;
+    public double parameterA;
+    public double parameterB;
+    public float length;
 
     public BlockPair(Block block1, Block block2){
         this.block1 = block1;
@@ -42,11 +42,15 @@ public class BlockPair {
     public void visualizeParticles(){
         for (int i = 0; i < length; i++) {
             float t =  (float) i * (float)diffXZ .length()/length + new Random().nextFloat();
-            block1.getWorld().spawnParticle(Particle.REDSTONE, returnMovingLocation(1,t/lengthXZ), 1, new Particle.DustOptions(Color.fromRGB(50,255,200), 1));
+            block1.getWorld().spawnParticle(Particle.REDSTONE, returnMovingLocation(true,t/lengthXZ), 1, new Particle.DustOptions(Color.fromRGB(50,255,200), 1));
         }
     }
-    public Location returnMovingLocation(int blockID, float parameter){
+    public Location returnMovingLocation(boolean startFromLower, float parameter){
         float t = parameter * lengthXZ;
-        return block1.getLocation().clone().add(diffXZ.clone().normalize().multiply(t).setY(parameterA * t * (t - parameterB))).add(new Vector(0.5,0,0.5));
+        if(startFromLower){
+            return block1.getLocation().clone().add(diffXZ.clone().normalize().multiply(t).setY(parameterA * t * (t - parameterB))).add(new Vector(0.5,0,0.5));
+        }
+        return block1.getLocation().clone().add(diffXZ.clone().normalize().multiply(1-t).setY(parameterA * (1-t) * ((1-t) - parameterB))).add(new Vector(0.5,0,0.5));
+
     }
 }
