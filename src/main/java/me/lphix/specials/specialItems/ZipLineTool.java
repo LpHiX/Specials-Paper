@@ -22,12 +22,14 @@ public class ZipLineTool {
     private static final HashMap<Player, Block> firstBlock = new HashMap<>();
     public static void useEvent(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        Block block = p.rayTraceBlocks(3).getHitBlock();
-        if(block == null){
+        Block block;
+        try {
+            block = p.rayTraceBlocks(5).getHitBlock();
+        }catch (Exception ex){
             p.sendMessage(chatPrefix + "Block is out of sight or too far!");
             return;
         }
-        if(block.getType().equals(Material.OAK_FENCE)){
+        if(!block.getType().equals(Material.OAK_FENCE)){
             p.sendMessage(chatPrefix + "Block must be Oak Fence");
             return;
         }
@@ -35,6 +37,7 @@ public class ZipLineTool {
             blockPairs.get(findZipline(block)).cancel();
             blockPairs.remove(findZipline(block));
             p.sendMessage(chatPrefix + "Zipline has been removed");
+            return;
         }
 
         if(!(firstBlock.containsKey(e.getPlayer()))){
@@ -54,25 +57,14 @@ public class ZipLineTool {
         }
     }
     private static void visualizeBlockPair(Block block1, Block block2, Player p){
-        Location point1 = block1.getLocation();
-        Location point2 = block2.getLocation();
-        Vector diffXZ = new Vector(point2.getX()-point2.getX(), 0, point2.getZ()-point1.getZ());
-        int diffY = block2.getY()-block1.getX();
-        double parameterA = Math.pow(diffXZ.length(), 1.5) * (Math.pow(diffY, 0.5) + 1);
-        double parameterB = diffXZ.length() - diffY/(parameterA * diffXZ.length());
-        World world = p.getWorld();
-        BukkitTask visualizeTask = new BukkitRunnable(){
-            @Override
-            public void run(){
-                for (int i = 0; i < Math.round(diffXZ.length()); i++) {
-                    float t = (float) i + new Random().nextFloat();
-                    Location spawnLoc = point1.add(diffXZ.normalize().multiply(t).setY(parameterA * t * (t - parameterB)));
-                    world.spawnParticle(Particle.REDSTONE, spawnLoc, 1, new Particle.DustOptions(Color.fromRGB(200,200,200), 1));
-                }
-            }
-        }.runTaskTimer(Specials.getPlugin(), 0L, 5L);
+        BlockPair blockpair = new BlockPair(block1, block2);
+        BukkitScheduler scheduler = Bukkit.getScheduler();
+        BukkitTask visualizeTask = scheduler.runTaskTimer(Specials.getPlugin(), () -> {
+            blockpair.visualizeParticles();
+        }, 0L, 5L);
 
         blockPairs.put(new BlockPair(block1, block2), visualizeTask);
+        firstBlock.remove(p);
         p.sendMessage(chatPrefix + "Zipline has been created");
     }
     public static BlockPair findZipline(Block block){

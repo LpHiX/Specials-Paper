@@ -21,6 +21,9 @@ public class SpecialInventory implements InventoryHolder {
             inv.setItem(i, new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1));
         }
         inv.setItem(10, SpecialItem.HOOK_ONE.initiateSpecialItem(1));
+        inv.setItem(11, SpecialItem.ZIPLINE_HOOK.initiateSpecialItem(1));
+        inv.setItem(12, SpecialItem.ZIPLINE_TOOL.initiateSpecialItem(1));
+        inv.setItem(13, SpecialItem.BLAZE_ARC.initiateSpecialItem(1));
     }
 
     @Override
