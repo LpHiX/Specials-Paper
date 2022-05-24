@@ -12,19 +12,11 @@ public class ZiplineHook {
         e.setCancelled(true);
         Player p = e.getPlayer();
         Block block = p.rayTraceBlocks(3).getHitBlock();
-        BlockPair blockPair = findZipline(block);
+        BlockPair blockPair = ZipLineTool.findZipline(block);
         if(blockPair == null){
             p.sendMessage(chatPrefix + "No Zipline was found");
             return;
         }
-
-    }
-    private static BlockPair findZipline(Block block){
-        for (BlockPair blockPairs: ZipLineTool.blockPairs){
-            if(blockPairs.checkBlock(block)){
-                return blockPairs;
-            }
-        }
-        return null;
+        //TODO: make the player ride on the zipline if it is found
     }
 }
