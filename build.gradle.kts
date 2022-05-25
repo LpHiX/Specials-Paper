@@ -35,6 +35,10 @@ publishing {
 
 tasks {
 
+    assemble {
+        dependsOn(reobfJar)
+    }
+
     withType<JavaCompile> {
         options.encoding = "UTF-8"
     }
