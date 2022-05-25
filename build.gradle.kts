@@ -31,6 +31,17 @@ publishing {
     }
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
+tasks {
+
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
+
+    withType<ProcessResources> {
+        filesMatching("plugin.yml") {
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+            expand("version" to project.version)
+        }
+    }
+
 }
