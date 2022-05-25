@@ -1,4 +1,4 @@
-package me.lphix.specials.specialItems;
+package me.lphix.specials.special_items;
 
 import me.lphix.specials.Specials;
 import me.lphix.specials.utilities.BlockPair;
@@ -6,14 +6,10 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public class ZipLineTool {
     private static final String chatPrefix = ChatColor.GREEN + "[Zipline] " + ChatColor.AQUA;

@@ -1,9 +1,9 @@
 package me.lphix.specials.listeners;
 
 import me.lphix.specials.SpecialItem;
-import me.lphix.specials.specialItems.HookItem;
-import me.lphix.specials.specialItems.ZipLineTool;
-import me.lphix.specials.specialItems.ZiplineHook;
+import me.lphix.specials.special_items.HookItem;
+import me.lphix.specials.special_items.ZipLineTool;
+import me.lphix.specials.special_items.ZiplineHook;
 import me.lphix.specials.utilities.Utility;
 import me.lphix.specials.inventory.SpecialInventory;
 import org.bukkit.Material;
