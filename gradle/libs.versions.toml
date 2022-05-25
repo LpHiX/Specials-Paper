@@ -1,0 +1,7 @@
+[versions]
+# Platforms
+minecraft = "1.18.2-R0.1-SNAPSHOT"
+
+[libraries]
+# Platforms
+paper = { group = "io.papermc.paper", name = "paper-api", version.ref = "minecraft" }
