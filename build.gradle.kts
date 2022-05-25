@@ -3,6 +3,7 @@ plugins {
     `maven-publish`
     idea
     eclipse
+    id("io.papermc.paperweight.userdev") version "1.3.6"
 }
 
 repositories {
@@ -17,6 +18,7 @@ repositories {
 
 dependencies {
     compileOnly(libs.paper)
+    paperDevBundle("1.18.2-R0.1-SNAPSHOT")
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
